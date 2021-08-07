@@ -3,7 +3,7 @@ import { RequestHandler } from "express";
 import { MetadataKeys } from "./MetadataKeys";
 import { Methods } from "./Methods";
 
-interface RouteHandlerDescriptor {
+interface RouteHandlerDescriptor extends PropertyDescriptor {
   value?: RequestHandler;
 }
 
