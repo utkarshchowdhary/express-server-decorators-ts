@@ -1,11 +1,11 @@
 {
-  "name": "express-server-decorator-ts",
+  "name": "express-server-decorators-ts",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start:w": "tsc -w",
-    "start": "nodemon build/index.js"
+    "start:r": "nodemon build/index.js"
   },
   "keywords": [],
   "author": "",

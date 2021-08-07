@@ -7,7 +7,7 @@ interface RouteHandlerDescriptor {
   value?: RequestHandler;
 }
 
-function routeBinder(method: string) {
+function RouteBinder(method: string) {
   return function (path: string) {
     return function (target: any, key: string, desc: RouteHandlerDescriptor) {
       Reflect.defineMetadata(MetadataKeys.Path, path, target, key);
@@ -16,8 +16,8 @@ function routeBinder(method: string) {
   };
 }
 
-export const get = routeBinder(Methods.Get);
-export const post = routeBinder(Methods.Post);
-export const put = routeBinder(Methods.Put);
-export const patch = routeBinder(Methods.Patch);
-export const del = routeBinder(Methods.Delete);
+export const Get = RouteBinder(Methods.Get);
+export const Post = RouteBinder(Methods.Post);
+export const Put = RouteBinder(Methods.Put);
+export const Patch = RouteBinder(Methods.Patch);
+export const Delete = RouteBinder(Methods.Delete);

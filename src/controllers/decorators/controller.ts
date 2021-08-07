@@ -4,11 +4,11 @@ import { Router } from "../../Router";
 import { MetadataKeys } from "./MetadataKeys";
 import { Methods } from "./Methods";
 
-function bodyValidator(keys: string[]): RequestHandler {
+function validateBodyProps(props: string[]): RequestHandler {
   return function (req: Request, res: Response, next: NextFunction) {
-    for (let key of keys) {
-      if (!req.body[key]) {
-        res.status(422).send(`Missing Property ${key}`);
+    for (let prop of props) {
+      if (!req.body[prop]) {
+        res.status(422).send(`Missing Property ${prop}`);
         return;
       }
     }
@@ -17,7 +17,7 @@ function bodyValidator(keys: string[]): RequestHandler {
   };
 }
 
-export function controller(routePrefix: string) {
+export function Controller(routePrefix: string) {
   return function (target: Function) {
     const router = Router.getInstance();
 
@@ -40,11 +40,10 @@ export function controller(routePrefix: string) {
         Reflect.getMetadata(MetadataKeys.Middleware, target.prototype, key) ||
         [];
 
-      const requiredBodyProps =
-        Reflect.getMetadata(MetadataKeys.Validator, target.prototype, key) ||
-        [];
+      const bodyProps =
+        Reflect.getMetadata(MetadataKeys.Body, target.prototype, key) || [];
 
-      const validator = bodyValidator(requiredBodyProps);
+      const validator = validateBodyProps(bodyProps);
 
       if (path) {
         router[method](

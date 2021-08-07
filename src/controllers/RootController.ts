@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { controller, get, use } from "./decorators";
+import { Controller, Get, Use } from "./decorators";
 
 function requireAuth(req: Request, res: Response, next: NextFunction): void {
   if (req.session?.loggedIn) {
@@ -10,9 +10,9 @@ function requireAuth(req: Request, res: Response, next: NextFunction): void {
   res.status(403).send("Not permitted");
 }
 
-@controller("")
+@Controller("")
 class RootController {
-  @get("/")
+  @Get("/")
   getRoot(req: Request, res: Response): void {
     if (req.session?.loggedIn) {
       res.send(`
@@ -32,8 +32,8 @@ class RootController {
     }
   }
 
-  @get("/protected")
-  @use(requireAuth)
+  @Get("/protected")
+  @Use(requireAuth)
   getProtected(req: Request, res: Response): void {
     res.send("Welcome to a protected route");
   }

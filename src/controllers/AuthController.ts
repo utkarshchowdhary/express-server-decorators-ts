@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { controller, get, post, bodyValidator } from "./decorators";
+import { Controller, Get, Post, BodyProps } from "./decorators";
 
-@controller("/auth")
+@Controller("/auth")
 class AuthController {
-  @get("/login")
+  @Get("/login")
   getLogin(req: Request, res: Response): void {
     res.send(`
     <form method="POST">
@@ -20,8 +20,8 @@ class AuthController {
   `);
   }
 
-  @post("/login")
-  @bodyValidator("email", "password")
+  @Post("/login")
+  @BodyProps("email", "password")
   postLogin(req: Request, res: Response): void {
     const { email, password } = req.body;
 
@@ -33,7 +33,7 @@ class AuthController {
     }
   }
 
-  @get("/logout")
+  @Get("/logout")
   getlogout(req: Request, res: Response): void {
     req.session = null;
     res.redirect("/");
